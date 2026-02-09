@@ -52,7 +52,7 @@ The initiative is in tandem with the module theme **Sharing, Exchange, and Build
    cd swapcircle
 ```
 
-##### Copy the environment example file to create your .env:
+##### Copy the environment example file to create .env:
 ```bash
 cp .env.example .env
 ```
@@ -63,6 +63,12 @@ cp .env.example .env
 ```bash
 docker compose up --build
 ```
+
+---
+
+#### Open browser and visit:
+Open: http://localhost: <Port NO:>
+You should see the page.
 
 ---
 
@@ -117,6 +123,30 @@ For questions or suggestions, please feel free to contact the team members:
 - Arjun: `arjunmahato14333@gmail.com`
 
 ---
+
+### How to Add This to Your GitHub Repository:
+
+1. Open your GitHub repository for the **SwapCircle** project.
+2. In the root directory, create a new file named `README.md`.
+3. Copy the above content and paste it into the new `README.md` file.
+4. Commit the changes:
+   - Add the file to the staging area:
+     ```bash
+     git add README.md
+     ```
+     
+   - Commit the file:  
+     ```bash
+     git commit -m "Added README.md"
+     ```
+     
+   - Push the commit to GitHub:
+     ```bash
+     git push origin main
+     ```
+
+---
+
 
 
 
