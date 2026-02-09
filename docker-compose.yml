@@ -1,0 +1,38 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: swapcircle-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: swapcircle
+      MYSQL_USER: swapuser
+      MYSQL_PASSWORD: swappass
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  web:
+    build: .
+    container_name: swapcircle-web
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PORT: 3000
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: swapuser
+      DB_PASSWORD: swappass
+      DB_NAME: swapcircle
+    ports:
+      - "3000:3000"
+
+volumes:
+  db_data:
