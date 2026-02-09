@@ -67,8 +67,8 @@ docker compose up --build
 ---
 
 #### Open browser and visit:
-Open: http://localhost: <Port NO:>
-You should see the page.
+- Open: http://localhost: Port NO:
+- You should see the page.
 
 ---
 
@@ -146,6 +146,7 @@ For questions or suggestions, please feel free to contact the team members:
      ```
 
 ---
+
 
 
 
