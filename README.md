@@ -4,10 +4,10 @@
 **Team name:** SwapCircle  
 **Team members:** 
 
-#### Mohammad Betab Alam
-#### Sagar Kumar Sharma
-#### Nitesh Shah
-#### Arjun Mahato
+- **Mohammad Betab Alam**  (Repo + Project setup lead)
+- **Sagar Kumar Sharma**  (Docker/Dev environment lead)
+- **Nitesh Shah**  (Backend scaffold lead) 
+- **Arjun Mahato**  (Documentation lead) 
 
 ---
 
@@ -117,6 +117,7 @@ For questions or suggestions, please feel free to contact the team members:
 - Arjun: `arjunmahato14333@gmail.com`
 
 ---
+
 
 
 
