@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  .card
+    h2 Sprint 1 Scaffold Running
+    p This page proves the Express + PUG app is running inside Docker.
+    ul
+      li DB status: #{dbStatus}
+      li Server time (from DB): #{serverTime}
+
+  .card
+    h3 Latest items (seed data)
+    if sampleItems.length
+      ul
+        each item in sampleItems
+          li #{item.title} (#{item.item_type}) — #{item.author_artist}
+    else
+      p No items found (or DB not connected).
