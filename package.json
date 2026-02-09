@@ -1,0 +1,15 @@
+{
+  "name": "swapcircle",
+  "version": "1.0.0",
+  "description": "SwapCircle - book and record swap community app",
+  "main": "src/app.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "mysql2": "^3.11.0",
+    "pug": "^3.0.3"
+  }
+}
