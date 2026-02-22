@@ -1,10 +1,9 @@
 const express = require("express");
-const { getPool } = require("../db");
+const { pool } = require("../db");
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const pool = getPool();
   try {
     await pool.query("SELECT 1;");
     res.json({ ok: true, db: "connected" });
