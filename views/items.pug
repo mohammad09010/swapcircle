@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  .card
+    h2 Items (Listings)
+    form(method="GET", action="/items")
+      label(for="q") Search:
+      input#q(type="text", name="q", value=q, placeholder="Title or author/artist")
+      label(for="type") Type:
+      select#type(name="type")
+        option(value="" selected=selectedType==="") All
+        option(value="book" selected=selectedType==="book") Books
+        option(value="record" selected=selectedType==="record") Records
+      button(type="submit") Apply
+
+  .card
+    if items.length
+      ul
+        each it in items
+          li
+            a(href=`/items/${it.item_id}`)= `${it.title} (${it.item_type}) — ${it.author_artist}`
+            if it.condition_note
+              |  — #{it.condition_note}
+    else
+      p No items found.
