@@ -82,9 +82,9 @@ docker compose down
 ## Contact
 For questions or suggestions, please feel free to contact the team members:
 
-- Betab: `thesagarsharma27@gmail.com`
+- Betab: `almmohammad291@gmail.com`
 - Nitesh: `shahnitesh600@gmail.com`
-- Sagar: `sagar@example.com`
+- Sagar: `thesagarsharma27@gmail.com`
 - Arjun: `arjunmahato14333@gmail.com`
 
 ---
@@ -111,6 +111,7 @@ For questions or suggestions, please feel free to contact the team members:
      ```
 
 ---
+
 
 
 
