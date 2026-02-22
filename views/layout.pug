@@ -7,17 +7,15 @@ html
     link(rel="stylesheet", href="/public/css/style.css")
   body
     header.site-header
-      h1.site-title= projectName
-      p.site-tagline A community book & record swap (not-for-profit)
-
-      nav.site-nav
-        a(href="/") Home
-        |  ·
-        a(href="/items") Items
-        |  ·
-        a(href="/users") Users
-        |  ·
-        a(href="/tags") Tags
+      .header-inner
+        .brand
+          h1.site-title= projectName
+          p.site-tagline A community book & record swap (not-for-profit)
+        nav.nav
+          a(href="/") Home
+          a(href="/items") Items
+          a(href="/users") Users
+          a(href="/tags") Tags
 
     main.container
       block content
