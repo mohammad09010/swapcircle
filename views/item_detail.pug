@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  .card
+    h2= item.title
+    p Type: #{item.item_type}
+    p Author/Artist: #{item.author_artist}
+    if item.condition_note
+      p Condition: #{item.condition_note}
+    p Listed on: #{item.created_at}
+
+    if item.owner_id
+      p Owner:
+        a(href=`/users/${item.owner_id}`)= item.owner_name
+
+  .card
+    h3 Tags / Categories
+    if tags.length
+      ul
+        each t in tags
+          li: a(href=`/tags/${t.tag_id}/items`)= t.name
+    else
+      p No tags assigned yet.
