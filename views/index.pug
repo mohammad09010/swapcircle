@@ -2,17 +2,25 @@ extends layout
 
 block content
   .card
-    h2 Sprint 1 Scaffold Running
-    p This page proves the Express + PUG app is running inside Docker.
+    h2 Sprint Scaffold Running
+    p This page proves the Express + PUG app is running inside Docker and can read from the database.
     ul
       li DB status: #{dbStatus}
       li Server time (from DB): #{serverTime}
+
+  .card
+    h3 Quick links
+    ul
+      li: a(href="/items") Browse items (listings)
+      li: a(href="/users") Browse users
+      li: a(href="/tags") Browse tags/categories
 
   .card
     h3 Latest items (seed data)
     if sampleItems.length
       ul
         each item in sampleItems
-          li #{item.title} (#{item.item_type}) — #{item.author_artist}
+          li
+            a(href=`/items/${item.item_id}`)= `${item.title} (${item.item_type}) — ${item.author_artist}`
     else
       p No items found (or DB not connected).
