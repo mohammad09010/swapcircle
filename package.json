@@ -6,6 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "start": "node src/app.js"
+    "dev": "node src/app.js"
   },
   "dependencies": {
     "express": "^4.19.2",
@@ -13,3 +14,4 @@
     "pug": "^3.0.3"
   }
 }
+
