@@ -1,26 +1,50 @@
 extends layout
 
 block content
-  .card
-    h2 Sprint Scaffold Running
-    p This page proves the Express + PUG app is running inside Docker and can read from the database.
-    ul
-      li DB status: #{dbStatus}
-      li Server time (from DB): #{serverTime}
+  .hero
+    h2 Swap, don’t waste.
+    p Exchange books and records with your community. Browse listings, explore tags, and connect with members.
 
-  .card
-    h3 Quick links
-    ul
-      li: a(href="/items") Browse items (listings)
-      li: a(href="/users") Browse users
-      li: a(href="/tags") Browse tags/categories
+    .actions
+      a.btn(href="/items") Browse items →
+      a.btn.btn-ghost(href="/users") See members
+      a.btn.btn-ghost(href="/tags") Explore tags
 
-  .card
-    h3 Latest items (seed data)
-    if sampleItems.length
-      ul
-        each item in sampleItems
-          li
-            a(href=`/items/${item.item_id}`)= `${item.title} (${item.item_type}) — ${item.author_artist}`
-    else
-      p No items found (or DB not connected).
+    .badges
+      span.badge.good DB: #{dbStatus}
+      if serverTime
+        span.badge Server time: #{serverTime}
+
+  .grid.grid-2
+    .card
+      h3 Latest items
+      if sampleItems.length
+        .list
+          each item in sampleItems
+            a.list-item(href=`/items/${item.item_id}`)
+              .list-left
+                .list-title= item.title
+                .list-meta #{item.item_type} · #{item.author_artist}
+              span.badge View
+      else
+        p.muted No items found.
+
+    .card
+      h3 Quick start
+      p.muted Try these pages:
+      .list
+        a.list-item(href="/items")
+          .list-left
+            .list-title Browse listings
+            .list-meta Books and records
+          span.badge Open
+        a.list-item(href="/users")
+          .list-left
+            .list-title Browse users
+            .list-meta Community members
+          span.badge Open
+        a.list-item(href="/tags")
+          .list-left
+            .list-title Browse tags
+            .list-meta Categories like Fantasy, Rock, Jazz
+          span.badge Open
