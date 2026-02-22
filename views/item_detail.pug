@@ -1,23 +1,32 @@
 extends layout
 
 block content
-  .card
+  .hero
     h2= item.title
-    p Type: #{item.item_type}
-    p Author/Artist: #{item.author_artist}
-    if item.condition_note
-      p Condition: #{item.condition_note}
-    p Listed on: #{item.created_at}
+    p #{item.item_type} · #{item.author_artist}
 
-    if item.owner_id
-      p Owner:
-        a(href=`/users/${item.owner_id}`)= item.owner_name
+    .badges
+      if item.condition_note
+        span.badge Condition: #{item.condition_note}
+      span.badge Listed: #{item.created_at}
+      if item.owner_id
+        span.badge Owner:
+          a(href=`/users/${item.owner_id}`) #{item.owner_name}
 
-  .card
-    h3 Tags / Categories
-    if tags.length
-      ul
-        each t in tags
-          li: a(href=`/tags/${t.tag_id}/items`)= t.name
-    else
-      p No tags assigned yet.
+  .grid.grid-2
+    .card
+      h3 Tags / Categories
+      if tags.length
+        .badges
+          each t in tags
+            a.badge(href=`/tags/${t.tag_id}/items`)= t.name
+      else
+        p.muted No tags assigned yet.
+
+    .card
+      h3 Next steps
+      p.muted
+        | You can browse other listings or explore tags to discover similar items.
+      .actions
+        a.btn.btn-ghost(href="/items") Back to items
+        a.btn.btn-ghost(href="/tags") Explore tags
