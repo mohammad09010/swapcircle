@@ -22,9 +22,11 @@ block content
         .list
           each item in sampleItems
             a.list-item(href=`/items/${item.item_id}`)
-              .list-left
-                .list-title= item.title
-                .list-meta #{item.item_type} · #{item.author_artist}
+              .row
+                img.thumb(src=`/public/images/${item.item_type}.svg` alt=`${item.item_type} thumbnail`)
+                .list-left
+                  .list-title= item.title
+                  .list-meta #{item.item_type} · #{item.author_artist}
               span.badge View
       else
         p.muted No items found.
