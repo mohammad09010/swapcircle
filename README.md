@@ -42,7 +42,7 @@ The initiative is in tandem with the module theme **Sharing, Exchange, and Build
 ## How to Run the Application (Using Docker)
 
 ### Prerequisites
-- **Docker Desktop** installed (for both Windows and macOS).
+- **Docker Desktop** installed for both Windows and macOS.
 
 ### Setup Instructions
 
@@ -54,7 +54,7 @@ The initiative is in tandem with the module theme **Sharing, Exchange, and Build
 
 ##### Copy the environment example file to create .env:
 ```bash
-cp .env.example .env
+copy .env.example .env
 ```
 
 ---
@@ -67,7 +67,7 @@ docker compose up --build
 ---
 
 #### Open browser and visit:
-- Open: http://localhost:
+- Open: http://localhost:3000
 - You should see the page.
 
 ---
@@ -75,41 +75,6 @@ docker compose up --build
 ##### To stop the application and containers:
 ```bash
 docker compose down
-```
-
----
-
-## Folder Structure
-
-```text
-swapcircle/
-  src/
-    app.js                  
-    db.js                   
-    routes/
-      index.js           
-      health.js             
-  views/
-    layout.pug              
-    index.pug               
-  public/
-    css/
-      style.css            
-  mysql/
-    init/
-      001_schema.sql       
-      002_seed.sql         
-  docs/
-    meeting-notes/
-      2026-02-09-kickoff.md 
-      TEMPLATE-standup.md   
-  .dockerignore             
-  .env.example            
-  .gitignore                  
-  docker-compose.yml        
-  Dockerfile                
-  package.json            
-  README.md                 
 ```
 
 ---
@@ -146,6 +111,7 @@ For questions or suggestions, please feel free to contact the team members:
      ```
 
 ---
+
 
 
 
