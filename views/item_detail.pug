@@ -2,16 +2,23 @@ extends layout
 
 block content
   .hero
-    h2= item.title
-    p #{item.item_type} · #{item.author_artist}
+    .row
+      img.thumb.thumb-lg(src=`/public/images/${item.item_type}.svg` alt=`${item.item_type} thumbnail`)
+      .list-left
+        h2= item.title
+        p #{item.item_type} · #{item.author_artist}
 
-    .badges
-      if item.condition_note
-        span.badge Condition: #{item.condition_note}
-      span.badge Listed: #{item.created_at}
-      if item.owner_id
-        span.badge Owner:
-          a(href=`/users/${item.owner_id}`) #{item.owner_name}
+        .badges
+          if item.condition_note
+            span.badge Condition: #{item.condition_note}
+          span.badge Listed: #{item.created_at}
+          if item.owner_id
+            span.badge Owner:
+              a(href=`/users/${item.owner_id}`) #{item.owner_name}
+
+        .actions
+          a.btn.btn-ghost(href="/items") Back to items
+          button.btn(type="button" onclick=`openSwapModal(${item.item_id}, ${JSON.stringify(item.title)})`) Swap request
 
   .grid.grid-2
     .card
@@ -28,5 +35,5 @@ block content
       p.muted
         | You can browse other listings or explore tags to discover similar items.
       .actions
-        a.btn.btn-ghost(href="/items") Back to items
         a.btn.btn-ghost(href="/tags") Explore tags
+        a.btn.btn-ghost(href="/users") View members
