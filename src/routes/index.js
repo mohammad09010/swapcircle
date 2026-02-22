@@ -1,11 +1,9 @@
 const express = require("express");
-const { getPool } = require("../db");
+const { pool } = require("../db");
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const pool = getPool();
-
   let dbStatus = "OK";
   let serverTime = null;
   let sampleItems = [];
@@ -15,7 +13,7 @@ router.get("/", async (req, res) => {
     serverTime = rows?.[0]?.nowTime ?? null;
 
     const [items] = await pool.query(
-      "SELECT title, item_type, author_artist FROM items ORDER BY created_at DESC LIMIT 5;"
+      "SELECT item_id, title, item_type, author_artist FROM items ORDER BY created_at DESC LIMIT 5;"
     );
     sampleItems = items;
   } catch (err) {
