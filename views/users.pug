@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  .card
+    h2 Users
+    p Browse community members (emails are not shown for privacy).
+
+    if users.length
+      table
+        thead
+          tr
+            th Display name
+            th Items listed
+            th Joined
+        tbody
+          each u in users
+            tr
+              td: a(href=`/users/${u.user_id}`)= u.display_name
+              td= u.item_count
+              td= u.created_at
+    else
+      p No users found.
