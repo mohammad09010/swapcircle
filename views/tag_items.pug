@@ -1,15 +1,24 @@
 extends layout
 
 block content
-  .card
+  .hero
     h2 Items tagged "#{tag.name}"
+    p Browse listings in this category.
 
+  .grid.grid-3
     if items.length
-      ul
-        each it in items
-          li
-            a(href=`/items/${it.item_id}`)= `${it.title} (${it.item_type}) — ${it.author_artist}`
-            if it.condition_note
-              |  — #{it.condition_note}
+      each it in items
+        .card
+          h3
+            a(href=`/items/${it.item_id}`)= it.title
+          p.muted #{it.item_type} · #{it.author_artist}
+          if it.condition_note
+            p.small Condition: #{it.condition_note}
+          .actions
+            a.btn.btn-ghost(href=`/items/${it.item_id}`) View →
     else
-      p No items for this tag yet.
+      .card
+        h3 No items for this tag
+        p.muted Try another tag from Tags page.
+        .actions
+          a.btn.btn-ghost(href="/tags") Back to tags
