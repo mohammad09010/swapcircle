@@ -1,17 +1,19 @@
 extends layout
 
 block content
-  .card
+  .hero
     h2= user.display_name
     p Joined: #{user.created_at}
 
   .card
     h3 Listings by this user
     if items.length
-      ul
+      .list
         each it in items
-          li
-            a(href=`/items/${it.item_id}`)= `${it.title} (${it.item_type}) — ${it.author_artist}`
-            |  — #{it.condition_note}
+          a.list-item(href=`/items/${it.item_id}`)
+            .list-left
+              .list-title #{it.title}
+              .list-meta #{it.item_type} · #{it.author_artist}
+            span.badge View
     else
-      p No listings yet.
+      p.muted No listings yet.
