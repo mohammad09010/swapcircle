@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS tags (
+  tag_id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(80) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS item_tags (
+  item_id INT NOT NULL,
+  tag_id INT NOT NULL,
+  PRIMARY KEY (item_id, tag_id),
+  FOREIGN KEY (item_id) REFERENCES items(item_id) ON DELETE CASCADE,
+  FOREIGN KEY (tag_id) REFERENCES tags(tag_id) ON DELETE CASCADE
+);
