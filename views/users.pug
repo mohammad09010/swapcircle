@@ -1,22 +1,21 @@
 extends layout
 
 block content
-  .card
+  .hero
     h2 Users
-    p Browse community members (emails are not shown for privacy).
+    p Browse community members. (Emails are hidden for privacy.)
 
+  .grid.grid-3
     if users.length
-      table
-        thead
-          tr
-            th Display name
-            th Items listed
-            th Joined
-        tbody
-          each u in users
-            tr
-              td: a(href=`/users/${u.user_id}`)= u.display_name
-              td= u.item_count
-              td= u.created_at
+      each u in users
+        .card
+          h3
+            a(href=`/users/${u.user_id}`)= u.display_name
+          p.muted Items listed: #{u.item_count}
+          p.small Joined: #{u.created_at}
+          .actions
+            a.btn.btn-ghost(href=`/users/${u.user_id}`) View profile →
     else
-      p No users found.
+      .card
+        h3 No users found
+        p.muted Check DB seed data.
