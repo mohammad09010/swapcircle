@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  .card
+    h2= user.display_name
+    p Joined: #{user.created_at}
+
+  .card
+    h3 Listings by this user
+    if items.length
+      ul
+        each it in items
+          li
+            a(href=`/items/${it.item_id}`)= `${it.title} (${it.item_type}) — ${it.author_artist}`
+            |  — #{it.condition_note}
+    else
+      p No listings yet.
