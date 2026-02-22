@@ -1,25 +1,30 @@
 extends layout
 
 block content
-  .card
+  .hero
     h2 Items (Listings)
-    form(method="GET", action="/items")
-      label(for="q") Search:
-      input#q(type="text", name="q", value=q, placeholder="Title or author/artist")
-      label(for="type") Type:
-      select#type(name="type")
-        option(value="" selected=selectedType==="") All
+    p Browse what’s available to swap. Use search and filters to find something you like.
+
+    form.filters(method="GET", action="/items")
+      input(type="text", name="q", value=q, placeholder="Search title or author/artist…")
+      select(name="type")
+        option(value="" selected=selectedType==="") All types
         option(value="book" selected=selectedType==="book") Books
         option(value="record" selected=selectedType==="record") Records
-      button(type="submit") Apply
+      button.btn(type="submit") Apply
 
-  .card
+  .grid.grid-3
     if items.length
-      ul
-        each it in items
-          li
-            a(href=`/items/${it.item_id}`)= `${it.title} (${it.item_type}) — ${it.author_artist}`
-            if it.condition_note
-              |  — #{it.condition_note}
+      each it in items
+        .card
+          h3
+            a(href=`/items/${it.item_id}`)= it.title
+          p.muted #{it.item_type} · #{it.author_artist}
+          if it.condition_note
+            p.small Condition: #{it.condition_note}
+          .actions
+            a.btn.btn-ghost(href=`/items/${it.item_id}`) View details →
     else
-      p No items found.
+      .card
+        h3 No items found
+        p.muted Try changing your search or selecting “All types”.
