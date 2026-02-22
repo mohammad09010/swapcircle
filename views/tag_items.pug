@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  .card
+    h2 Items tagged "#{tag.name}"
+
+    if items.length
+      ul
+        each it in items
+          li
+            a(href=`/items/${it.item_id}`)= `${it.title} (${it.item_type}) — ${it.author_artist}`
+            if it.condition_note
+              |  — #{it.condition_note}
+    else
+      p No items for this tag yet.
