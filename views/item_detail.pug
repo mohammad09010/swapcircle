@@ -13,8 +13,9 @@ block content
             span.badge Condition: #{item.condition_note}
           span.badge Listed: #{item.created_at}
           if item.owner_id
-            span.badge Owner:
-              a(href=`/users/${item.owner_id}`) #{item.owner_name}
+            span.badge
+              | Owner:
+              a(href=`/users/${item.owner_id}`)  #{item.owner_name}
 
         .actions
           a.btn.btn-ghost(href="/items") Back to items
@@ -31,9 +32,8 @@ block content
         p.muted No tags assigned yet.
 
     .card
-      h3 Next steps
-      p.muted
-        | You can browse other listings or explore tags to discover similar items.
+      h3 Community swap guidance
+      p.muted Meet in public places, confirm item condition clearly, and avoid posting private contact details on listings.
       .actions
         a.btn.btn-ghost(href="/tags") Explore tags
         a.btn.btn-ghost(href="/users") View members
