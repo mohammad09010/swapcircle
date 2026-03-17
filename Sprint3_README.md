@@ -1,11 +1,15 @@
 # SwapCircle - Sprint 3
 
+---
+
 - Express + PUG + MySQL + Docker
 - DB-driven pages for **home, items, item detail, tags, tag items, users, and user profile**
 - UI-only **Swap Request** modal for Sprint 3
 - privacy-safe member directory (emails hidden)
 - visible safety guidance across the app
 - friendly 404 and server error pages
+
+---
 
 ## Sprint 3 scope covered
 
@@ -17,6 +21,8 @@
 - **US-05** Browse users and profiles
 - **US-06** Safety guidance visible in the UI
 - **US-07** Swap request modal **UI only**
+
+---
 
 ### Still intentionally deferred to Sprint 4
 - authentication/login
@@ -67,47 +73,6 @@ docker compose up --build
 - `/tags/:id/items`
 - `/support`
 - `/my-swaps`
-
-## Exact image locations to insert your PNG files
-
-All image paths are already wired into the database seeds and templates. Save your PNG files in these exact locations and filenames.
-
-### Hero / UI images
-- `public/images/hero/record-shelf.png`
-- `public/images/ui/404-illustration.png`
-
-### Category images
-- `public/images/categories/fantasy.png`
-- `public/images/categories/classics.png`
-- `public/images/categories/rock.png`
-- `public/images/categories/jazz.png`
-- `public/images/categories/scifi.png`
-- `public/images/categories/mystery.png`
-
-### User profile images
-- `public/images/users/sarah-miller.png`
-- `public/images/users/alex-record.png`
-- `public/images/users/marcus-chen.png`
-- `public/images/users/elena-rodriguez.png`
-- `public/images/users/david-kim.png`
-
-### Item images
-- `public/images/items/the-hobbit-main.png`
-- `public/images/items/the-hobbit-2.png`
-- `public/images/items/the-hobbit-3.png`
-- `public/images/items/the-hobbit-4.png`
-- `public/images/items/kind-of-blue.png`
-- `public/images/items/dune.png`
-- `public/images/items/abbey-road.png`
-- `public/images/items/1984.png`
-- `public/images/items/name-of-the-wind.png`
-- `public/images/items/american-gods.png`
-- `public/images/items/the-witcher.png`
-- `public/images/items/mistborn.png`
-- `public/images/items/neuromancer.png`
-- `public/images/items/modern-poetry-vol-1.png`
-- `public/images/items/design-systems.png`
-- `public/images/items/polaroid-go-camera.png`
 
 ## Notes
 
