@@ -30,7 +30,7 @@ The initiative is in tandem with the module theme **Sharing, Exchange, and Build
 
 ## Features
 
-### Current Features (Sprint 1)
+### Current Features
 
 - **Basic Setup**: Express.js app with PUG templating engine.
 - **MySQL Database**: Dockerized MySQL with initial schema and seed data.
