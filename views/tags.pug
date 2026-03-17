@@ -12,6 +12,7 @@ block content
           h3
             a(href=`/tags/${t.tag_id}/items`)= t.name
           p.muted Browse items with this tag
+          p.small Items in category: #{t.item_count}
           .actions
             a.btn.btn-ghost(href=`/tags/${t.tag_id}/items`) Open →
     else
