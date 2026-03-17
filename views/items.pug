@@ -23,6 +23,8 @@ block content
               h3
                 a(href=`/items/${it.item_id}`)= it.title
               p.muted #{it.item_type} · #{it.author_artist}
+              if it.owner_name
+                p.small Listed by #{it.owner_name}
               if it.condition_note
                 p.small Condition: #{it.condition_note}
 
