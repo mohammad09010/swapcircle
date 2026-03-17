@@ -68,7 +68,6 @@ docker compose up --build
 
 #### Open browser and visit:
 - Open: http://localhost:3000
-- You should see the page.
 
 ---
 
