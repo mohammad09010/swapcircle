@@ -1,0 +1,21 @@
+extends layout
+include includes/mixins
+
+block content
+  section.page-section
+    .section-toolbar
+      a.back-link(href="/") ←
+      h1 Explore Categories
+      form.toolbar-search(method='GET' action='/tags')
+        input(type='text' name='q' value=q placeholder='Search categories...')
+    p.section-lead Browse through our curated collections to find your next swap. From vintage classics to futuristic tech.
+    .category-grid
+      each tag in tags
+        article.category-card
+          +imageWithFallback(tag.cover_image_path, `${tag.name} category`, '/public/images/placeholders/category-placeholder.svg', 'category-image')
+          .category-card-body
+            .category-card-top
+              h2= tag.name
+              span.category-count #{tag.item_count} items
+            p= tag.description
+            a.btn.btn-primary(href=`/tags/${tag.tag_id}/items`) Browse #{tag.name}

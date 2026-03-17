@@ -1,0 +1,40 @@
+mixin imageWithFallback(src, alt, fallback, className)
+  img(class=className, src=src, alt=alt, loading="lazy", onerror=`this.onerror=null;this.src='${fallback}'`)
+
+mixin itemCard(item, options)
+  - const itemOptions = options || {};
+  article.item-card(class=itemOptions.compact ? 'item-card-compact' : '')
+    .item-image-wrap
+      +imageWithFallback(item.image_path, `${item.title} cover`, '/public/images/placeholders/item-placeholder.svg', 'item-image')
+      if item.item_type
+        span.item-pill= item.item_type === 'book' ? 'Book' : 'Vinyl'
+      button.favorite-toggle(type='button' aria-label=`Save ${item.title}` data-fav=item.item_id) ♡
+    .item-card-body
+      h3.item-card-title
+        a(href=`/items/${item.item_id}`)= item.title
+      p.item-card-meta= item.author_artist
+      if item.location_text
+        p.item-card-location= item.location_text
+      .item-card-actions
+        if itemOptions.showSwap !== false
+          button.btn.btn-primary(type='button' onclick=`openSwapModal(${item.item_id}, ${JSON.stringify(item.title)})`) Swap Request
+        a.btn.btn-soft(href=`/items/${item.item_id}`) View Details
+
+mixin profileItemCard(item)
+  article.profile-item-card
+    .profile-item-image-wrap
+      +imageWithFallback(item.image_path, `${item.title} cover`, '/public/images/placeholders/item-placeholder.svg', 'profile-item-image')
+    .profile-item-body
+      h3.profile-item-title
+        a(href=`/items/${item.item_id}`)= item.title
+      p.profile-item-meta= item.author_artist
+      p.profile-item-condition= item.condition_note
+
+mixin userDirectoryCard(user)
+  article.member-card
+    +imageWithFallback(user.avatar_path, `${user.display_name} avatar`, '/public/images/placeholders/avatar-placeholder.svg', 'member-avatar')
+    h3.member-name= user.display_name
+    if user.badge_label
+      p.member-badge= user.badge_label
+    p.member-meta #{user.joinedLabel} • #{user.item_count} items
+    a.btn.btn-primary.member-action(href=`/users/${user.user_id}`) View Profile
