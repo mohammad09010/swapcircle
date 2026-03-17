@@ -1,0 +1,26 @@
+extends layout
+include includes/mixins
+
+block content
+  section.page-section.not-found-page
+    .not-found-copy
+      p.eyebrow Error 404
+      h1 Oops! Page not found.
+      p.not-found-text We couldn’t find what you were looking for. Maybe it was swapped already, or perhaps the link is broken?
+      .hero-actions
+        a.btn.btn-primary(href='/') Back to Home
+        a.btn.btn-soft(href='/items') Browse Items
+      p.support-link Need help finding something specific?
+        a(href='/support')  Contact Support ↗
+    .not-found-visual
+      +imageWithFallback('/public/images/ui/404-illustration.png', 'Page not found illustration', '/public/images/placeholders/404-placeholder.svg', 'not-found-image')
+  footer.compact-footer
+    .footer-brand
+      .brand
+        img.brand-logo(src="/public/images/logo.svg" alt="SwapCircle logo")
+        span.brand-text= projectName
+    p © 2023 SwapCircle Inc. All rights reserved.
+    .footer-icons
+      span ↗
+      span ?
+      span 🛡
