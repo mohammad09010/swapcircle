@@ -1,6 +1,4 @@
-# SwapCircle - Sprint 3 Figma-aligned MVP
-
-This version updates the original Sprint 3 codebase so the UI matches the Figma web prototypes much more closely while still respecting the module scope:
+# SwapCircle - Sprint 3
 
 - Express + PUG + MySQL + Docker
 - DB-driven pages for **home, items, item detail, tags, tag items, users, and user profile**
