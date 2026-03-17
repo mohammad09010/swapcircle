@@ -1,6 +1,6 @@
 const mysql = require("mysql2/promise");
 
-// Create ONE shared pool for the whole app (best practice)
+// Create ONE shared pool for the whole app
 const pool = mysql.createPool({
   host: process.env.DB_HOST || "localhost",
   port: Number(process.env.DB_PORT || 3306),
@@ -11,7 +11,7 @@ const pool = mysql.createPool({
   connectionLimit: 10
 });
 
-// Keep getPool() for backward compatibility with your existing code
+// Keep getPool() for backward compatibility
 function getPool() {
   return pool;
 }
