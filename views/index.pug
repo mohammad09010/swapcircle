@@ -3,7 +3,7 @@ extends layout
 block content
   .hero
     h2 Swap, don’t waste.
-    p Exchange books and records with your community. Browse listings, explore tags, and connect with members.
+    p Exchange books and records with your community. Browse listings, explore tags, and connect with members through a simple community-first MVP.
 
     .actions
       a.btn(href="/items") Browse items →
@@ -12,6 +12,9 @@ block content
 
     .badges
       span.badge.good DB: #{dbStatus}
+      span.badge #{stats.items} items
+      span.badge #{stats.users} members
+      span.badge #{stats.tags} tags
       if serverTime
         span.badge Server time: #{serverTime}
 
@@ -27,6 +30,8 @@ block content
                 .list-left
                   .list-title= item.title
                   .list-meta #{item.item_type} · #{item.author_artist}
+                  if item.owner_name
+                    .small Listed by #{item.owner_name}
               span.badge View
       else
         p.muted No items found.
@@ -38,12 +43,12 @@ block content
         a.list-item(href="/items")
           .list-left
             .list-title Browse listings
-            .list-meta Books and records
+            .list-meta Books and records from the database
           span.badge Open
         a.list-item(href="/users")
           .list-left
             .list-title Browse users
-            .list-meta Community members
+            .list-meta Community members and their listings
           span.badge Open
         a.list-item(href="/tags")
           .list-left
