@@ -6,30 +6,30 @@ const router = express.Router();
 // Listings page (DB-driven)
 router.get("/", async (req, res, next) => {
   try {
-    const type = req.query.type; // "book" | "record" | undefined
+    const type = req.query.type;
     const qRaw = (req.query.q || "").toString().trim();
-
-    // Simple limits to keep queries sane
     const q = qRaw.length > 80 ? qRaw.slice(0, 80) : qRaw;
 
     const params = [];
     let sql = `
-      SELECT item_id, title, item_type, author_artist, condition_note
-      FROM items
+      SELECT i.item_id, i.title, i.item_type, i.author_artist, i.condition_note,
+             u.display_name AS owner_name
+      FROM items i
+      LEFT JOIN users u ON u.user_id = i.owner_user_id
       WHERE 1=1
     `;
 
     if (type === "book" || type === "record") {
-      sql += " AND item_type = ? ";
+      sql += " AND i.item_type = ? ";
       params.push(type);
     }
 
     if (q.length > 0) {
-      sql += " AND (title LIKE ? OR author_artist LIKE ?) ";
+      sql += " AND (i.title LIKE ? OR i.author_artist LIKE ?) ";
       params.push(`%${q}%`, `%${q}%`);
     }
 
-    sql += " ORDER BY created_at DESC;";
+    sql += " ORDER BY i.created_at DESC;";
 
     const [items] = await pool.query(sql, params);
 
@@ -49,7 +49,15 @@ router.get("/:id", async (req, res, next) => {
   try {
     const itemId = Number(req.params.id);
     if (!Number.isInteger(itemId) || itemId <= 0) {
-      return res.status(400).send("Invalid item id");
+      return res.status(400).render("status_message", {
+        projectName: "SwapCircle",
+        title: "Invalid item",
+        message: "The item ID is not valid. Please choose an item from the listings page.",
+        primaryLink: "/items",
+        primaryText: "Browse items",
+        secondaryLink: "/",
+        secondaryText: "Go home"
+      });
     }
 
     const [[item]] = await pool.query(
@@ -62,9 +70,18 @@ router.get("/:id", async (req, res, next) => {
       [itemId]
     );
 
-    if (!item) return res.status(404).send("Item not found");
+    if (!item) {
+      return res.status(404).render("status_message", {
+        projectName: "SwapCircle",
+        title: "Item not found",
+        message: "That listing does not exist or may have been removed.",
+        primaryLink: "/items",
+        primaryText: "Back to items",
+        secondaryLink: "/tags",
+        secondaryText: "Explore tags"
+      });
+    }
 
-    // Tags for this item (requires tags + item_tags tables)
     const [tags] = await pool.query(
       `SELECT t.tag_id, t.name
        FROM item_tags it
