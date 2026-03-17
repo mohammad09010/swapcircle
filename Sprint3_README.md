@@ -123,3 +123,10 @@ This build stays aligned to the Sprint 2 specification and Sprint 3 expectations
 - safety guidance is prominent
 - invalid records render a friendly page instead of raw text
 - the modal is **demo only** and does not fake backend messaging
+
+## What to leave for Sprint 4
+- login/authentication
+- in-app messaging backend
+- points or ratings
+- recommendation or matching logic
+- GitHub Actions CI/CD polish
