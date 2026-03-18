@@ -53,7 +53,7 @@ block content
         h3 Recent Swaps
         each swap in recentSwaps
           .recent-swap-row
-            +imageWithFallback(swap.image_path, swap.title, '/public/images/placeholders/item-placeholder.svg', 'recent-swap-thumb')
+            +imageWithFallback(swap.image_path, swap.title, '/public/images/placeholders/category-placeholder.svg', 'recent-swap-thumb')
             .recent-swap-copy
               h4= swap.title
               p= swap.relativeDate
