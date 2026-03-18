@@ -48,8 +48,11 @@ The initiative is in tandem with the module theme **Sharing, Exchange, and Build
 
 #### Clone this repository:
  ```bash
-   git clone https://github.com/mohammad09010/swapcircle.git
-   cd swapcircle
+git clone https://github.com/mohammad09010/swapcircle.git
+```
+
+```bash
+cd swapcircle
 ```
 
 ##### Copy the environment example file to create .env:
@@ -62,6 +65,9 @@ copy .env.example .env
 ##### Build and run the containers using Docker Compose:
 ```bash
 docker compose down -v
+```
+
+```bash
 docker compose up --build
 ```
 
