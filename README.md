@@ -23,7 +23,7 @@ The initiative is in tandem with the module theme **Sharing, Exchange, and Build
 - **Frontend**: HTML, CSS, JavaScript, PUG (templating engine)
 - **Backend**: Node.js, Express.js
 - **Database**: MySQL
-- **DevOps**: Docker, Git, GitHub Actions (in later sprints)
+- **DevOps**: Docker, Git, GitHub Actions
 - **Project Management**: GitHub Projects (Kanban)
 
 ---
