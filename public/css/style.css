@@ -457,10 +457,9 @@ img {
   color: var(--muted);
 }
 
-.home-item-link {
-  margin-left: auto;
-  color: var(--primary);
-  font-size: 1.4rem;
+.home-item-action {
+  margin-top: 16px;
+  align-self: flex-start;
 }
 
 .item-pill,
