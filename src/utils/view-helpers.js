@@ -41,7 +41,7 @@ function buildGallery(item) {
     item.gallery_image_3,
     item.gallery_image_4
   ].filter(Boolean);
-  return gallery.length ? gallery : ["/public/images/placeholders/item-placeholder.svg"];
+  return gallery.length ? gallery : ["/public/images/placeholders/category-placeholder.svg"];
 }
 
 module.exports = {
