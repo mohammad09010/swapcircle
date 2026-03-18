@@ -13,14 +13,10 @@ block content
       p.support-link Need help finding something specific?
         a(href='/support')  Contact Support ↗
     .not-found-visual
-      +imageWithFallback('/public/images/ui/404-illustration.png', 'Page not found illustration', '/public/images/placeholders/404-placeholder.svg', 'not-found-image')
+      +imageWithFallback('/public/images/placeholders/404-illustration.svg', 'Page not found illustration', '/public/images/placeholders/404-placeholder.svg', 'not-found-image')
   footer.compact-footer
     .footer-brand
       .brand
         img.brand-logo(src="/public/images/logo.svg" alt="SwapCircle logo")
         span.brand-text= projectName
     p © 2023 SwapCircle Inc. All rights reserved.
-    .footer-icons
-      span ↗
-      span ?
-      span 🛡
