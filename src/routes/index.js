@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get("/", async (req, res, next) => {
   try {
-    const [items] = await pool.query(
+    const [featuredItems] = await pool.query(
       `SELECT i.item_id, i.title, i.item_type, i.author_artist, i.location_text,
               i.image_path, i.condition_note, i.created_at,
               u.display_name AS owner_name
@@ -25,16 +25,17 @@ router.get("/", async (req, res, next) => {
        LIMIT 4;`
     );
 
-    const cards = latestItems.map((item) => ({
-      ...item,
-      relativeDate: formatRelativeDate(item.created_at)
-    }));
-
     res.render("index", {
       pageTitle: "Home",
-      featuredItems: items,
-      latestItems: cards,
-      heroImage: "/public/images/hero/record-shelf.png"
+      featuredItems: featuredItems.map((item) => ({
+        ...item,
+        relativeDate: formatRelativeDate(item.created_at)
+      })),
+      latestItems: latestItems.map((item) => ({
+        ...item,
+        relativeDate: formatRelativeDate(item.created_at)
+      })),
+      heroImage: "/public/images/record.svg"
     });
   } catch (error) {
     next(error);
