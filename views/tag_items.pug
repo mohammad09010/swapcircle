@@ -27,15 +27,20 @@ block content
             span High Rated Owners
       .tag-main
         .tag-main-toolbar
-          h2 Available Books
+          h2 Available Items
           .toolbar-inline
             span Sort by:
             select
               option Newest First
-        .tag-item-grid
-          each item in items
-            +itemCard(item, { showSwap: false })
-        p.grid-end-note No more items to show.
+        if items.length
+          .tag-item-grid
+            each item in items
+              +itemCard(item, { showSwap: false })
+          p.grid-end-note No more items to show.
+        else
+          .empty-state
+            h2 No items in this category yet
+            p Check back later or browse another category.
   footer.site-footer
     .footer-top
       .footer-column
@@ -66,4 +71,3 @@ block content
       .footer-links-inline
         a(href='/support') Twitter
         a(href='/support') Instagram
-        a(href='/support') Discord
