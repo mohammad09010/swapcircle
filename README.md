@@ -61,6 +61,7 @@ copy .env.example .env
 
 ##### Build and run the containers using Docker Compose:
 ```bash
+docker compose down -v
 docker compose up --build
 ```
 
