@@ -24,6 +24,7 @@ function formatJoinedDate(input) {
   if (!input) return "Joined recently";
   const date = new Date(input);
   if (Number.isNaN(date.getTime())) return "Joined recently";
+
   return `Joined ${date.toLocaleDateString("en-GB", {
     month: "long",
     year: "numeric"
@@ -41,7 +42,10 @@ function buildGallery(item) {
     item.gallery_image_3,
     item.gallery_image_4
   ].filter(Boolean);
-  return gallery.length ? gallery : ["/public/images/placeholders/category-placeholder.svg"];
+
+  return gallery.length
+    ? gallery
+    : ["/public/images/placeholders/category-placeholder.svg"];
 }
 
 module.exports = {
