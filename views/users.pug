@@ -5,7 +5,7 @@ block content
   section.page-section
     .users-toolbar
       .users-toolbar-left
-        a.back-link(href="/users" aria-label="Back") ←
+        a.back-link(href="/" aria-label="Back") ←
         h1 Member Directory
 
       form.toolbar-search(method="GET" action="/users")
@@ -45,8 +45,8 @@ block content
             else
               p.member-badge.member-badge-empty No badge
 
-          p.member-meta
-            | #{user.joinedLabel} • #{user.item_count} #{user.item_count === 1 ? 'item' : 'items'}
+            p.member-meta
+              | #{user.joinedLabel} • #{user.item_count} #{user.item_count === 1 ? 'item' : 'items'}
 
             a.btn.btn-primary.member-action(href=`/users/${user.user_id}`) View Profile
 
