@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const path = require("path");
+const { waitForDatabase } = require("./db");
 
 const indexRouter = require("./routes/index");
 const healthRouter = require("./routes/health");
@@ -48,7 +49,19 @@ app.use((err, req, res, next) => {
   });
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`SwapCircle running at http://localhost:${PORT}`);
-});
+const PORT = Number(process.env.PORT || 3000);
+
+async function startServer() {
+  try {
+    await waitForDatabase();
+    app.listen(PORT, () => {
+      console.log(`SwapCircle running at http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("Unable to connect to MySQL after multiple attempts.");
+    console.error(error);
+    process.exit(1);
+  }
+}
+
+startServer();
