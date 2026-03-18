@@ -5,7 +5,7 @@ mixin itemCard(item, options)
   - const itemOptions = options || {};
   article.item-card(class=itemOptions.compact ? 'item-card-compact' : '')
     .item-image-wrap
-      +imageWithFallback(item.image_path, `${item.title} cover`, '/public/images/placeholders/item-placeholder.svg', 'item-image')
+      +imageWithFallback(item.image_path, `${item.title} cover`, '/public/images/placeholders/category-placeholder.svg', 'item-image')
       if item.item_type
         span.item-pill= item.item_type === 'book' ? 'Book' : 'Vinyl'
       button.favorite-toggle(type='button' aria-label=`Save ${item.title}` data-fav=item.item_id) ♡
@@ -23,7 +23,7 @@ mixin itemCard(item, options)
 mixin profileItemCard(item)
   article.profile-item-card
     .profile-item-image-wrap
-      +imageWithFallback(item.image_path, `${item.title} cover`, '/public/images/placeholders/item-placeholder.svg', 'profile-item-image')
+      +imageWithFallback(item.image_path, `${item.title} cover`, '/public/images/placeholders/category-placeholder.svg', 'profile-item-image')
     .profile-item-body
       h3.profile-item-title
         a(href=`/items/${item.item_id}`)= item.title
@@ -32,9 +32,11 @@ mixin profileItemCard(item)
 
 mixin userDirectoryCard(user)
   article.member-card
-    +imageWithFallback(user.avatar_path, `${user.display_name} avatar`, '/public/images/placeholders/avatar-placeholder.svg', 'member-avatar')
+    +imageWithFallback(user.avatar_path, `${user.display_name} avatar`, '/public/images/placeholders/avatar.svg', 'member-avatar')
     h3.member-name= user.display_name
     if user.badge_label
       p.member-badge= user.badge_label
-    p.member-meta #{user.joinedLabel} • #{user.item_count} items
+    else
+      p.member-badge.member-badge-empty No badge
+    p.member-meta #{user.joinedLabel} • #{user.item_count} #{user.item_count === 1 ? 'item' : 'items'}
     a.btn.btn-primary.member-action(href=`/users/${user.user_id}`) View Profile
