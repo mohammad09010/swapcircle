@@ -11,13 +11,13 @@ block content
     .detail-grid
       .detail-gallery-panel
         .detail-main-image-wrap
-          +imageWithFallback(item.gallery[0], `${item.title} main image`, '/public/images/placeholders/item-placeholder.svg', 'detail-main-image')
+          +imageWithFallback(item.gallery[0], `${item.title} main image`, '/public/images/placeholders/category-placeholder.svg', 'detail-main-image')
           span.gallery-counter 1 / #{item.gallery.length}
         if item.gallery.length > 1
           .detail-thumbs
             each imagePath, index in item.gallery
               button.detail-thumb(type='button' data-gallery=imagePath class=index === 0 ? 'active' : '')
-                +imageWithFallback(imagePath, `${item.title} thumbnail ${index + 1}`, '/public/images/placeholders/item-placeholder.svg', 'detail-thumb-image')
+                +imageWithFallback(imagePath, `${item.title} thumbnail ${index + 1}`, '/public/images/placeholders/category-placeholder.svg', 'detail-thumb-image')
       .detail-info-panel
         .detail-heading-meta
           span.detail-type= item.item_type === 'book' ? 'Book' : 'Vinyl'
@@ -30,14 +30,14 @@ block content
               a.tag-chip(href=`/tags/${tag.tag_id}/items`)= tag.name
         .owner-card
           .owner-card-left
-            +imageWithFallback(item.avatar_path, item.owner_name, '/public/images/placeholders/avatar-placeholder.svg', 'owner-avatar')
+            +imageWithFallback(item.avatar_path, item.owner_name, '/public/images/placeholders/avatar.svg', 'owner-avatar')
             .owner-copy
               h3
                 a(href=`/users/${item.owner_id}`)= item.owner_name
               p= item.badge_label || 'Trusted community member'
           .owner-card-right
             span.owner-label Location
-            strong= item.location_text || item.owner_location
+            strong= item.location_text || item.owner_location || 'Location not specified'
         .owner-stats
           .stat-card
             span.stat-label Posted
@@ -57,7 +57,7 @@ block content
         .related-grid
           each related in relatedItems
             a.related-card(href=`/items/${related.item_id}`)
-              +imageWithFallback(related.image_path, related.title, '/public/images/placeholders/item-placeholder.svg', 'related-image')
+              +imageWithFallback(related.image_path, related.title, '/public/images/placeholders/category-placeholder.svg', 'related-image')
               span= related.title
   footer.site-footer.site-footer-detail
     .footer-top
