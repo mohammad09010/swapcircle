@@ -26,24 +26,25 @@ block content
         each item in featuredItems
           +itemCard(item, { showSwap: false })
 
-  section.page-section
-    .section-heading-row
-      .section-heading
-        h2 Latest Items
-        p Recently added treasures waiting for a new home
-      a.text-link(href="/items") View Gallery
-    .card-grid.card-grid-home
-      each item in latestItems
-        article.home-item-card
-          .home-item-image-wrap
-            +imageWithFallback(item.image_path, `${item.title} cover`, '/public/images/placeholders/category-placeholder.svg', 'home-item-image')
-            span.item-pill= item.item_type === 'book' ? 'Book' : 'Vinyl'
-          .home-item-content
-            h3.home-item-title
-              a(href=`/items/${item.item_id}`)= item.title
-            p.home-item-author= item.author_artist
-            p.home-item-location= item.location_text
-            a.home-item-link(href=`/items/${item.item_id}`) ↔
+  if latestItems.length
+    section.page-section
+      .section-heading-row
+        .section-heading
+          h2 Latest Items
+          p Recently added treasures waiting for a new home
+        a.text-link(href="/items") View Gallery
+      .card-grid.card-grid-home
+        each item in latestItems
+          article.home-item-card
+            .home-item-image-wrap
+              +imageWithFallback(item.image_path, `${item.title} cover`, '/public/images/placeholders/category-placeholder.svg', 'home-item-image')
+              span.item-pill= item.item_type === 'book' ? 'Book' : 'Vinyl'
+            .home-item-content
+              h3.home-item-title
+                a(href=`/items/${item.item_id}`)= item.title
+              p.home-item-author= item.author_artist
+              p.home-item-location= item.location_text
+              a.btn.btn-soft.home-item-action(href=`/items/${item.item_id}`) View Details
 
   section.page-section.safety-banner
     .safety-banner-icon 🛡
