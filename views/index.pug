@@ -13,7 +13,18 @@ block content
         a.btn.btn-soft(href="/users") See Members
         a.text-link(href="/tags") Explore Tags
     .hero-media
-      +imageWithFallback(heroImage, 'Record shelf', '/public/images/placeholders/category-placeholder.svg', 'hero-image')
+      +imageWithFallback(heroImage, 'SwapCircle hero illustration', '/public/images/placeholders/category-placeholder.svg', 'hero-image')
+
+  if featuredItems.length
+    section.page-section
+      .section-heading-row
+        .section-heading
+          h2 Featured Items
+          p Hand-picked swaps from trusted community members
+        a.text-link(href="/items") Browse all items
+      .card-grid.card-grid-home
+        each item in featuredItems
+          +itemCard(item, { showSwap: false })
 
   section.page-section
     .section-heading-row
@@ -25,7 +36,7 @@ block content
       each item in latestItems
         article.home-item-card
           .home-item-image-wrap
-            +imageWithFallback(item.image_path, `${item.title} cover`, '/public/images/placeholders/item-placeholder.svg', 'home-item-image')
+            +imageWithFallback(item.image_path, `${item.title} cover`, '/public/images/placeholders/category-placeholder.svg', 'home-item-image')
             span.item-pill= item.item_type === 'book' ? 'Book' : 'Vinyl'
           .home-item-content
             h3.home-item-title
@@ -61,7 +72,3 @@ block content
         a(href="/support") Report Issue
     .footer-bottom
       p © 2024 SwapCircle. Built for a circular economy.
-      .footer-icons
-        span 🔈
-        span 🌐
-        span @
