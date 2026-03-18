@@ -42,13 +42,13 @@ block content
 
             h3.member-name= user.display_name
 
-            if user.badge_title
-              p.member-badge= user.badge_title
+            if user.badge_label
+              p.member-badge= user.badge_label
             else
               p.member-badge.member-badge-empty No badge
 
-            p.member-meta
-              | Joined #{user.joined_label} • #{user.item_count} #{user.item_count === 1 ? 'item' : 'items'}
+          p.member-meta
+            | #{user.joinedLabel} • #{user.item_count} #{user.item_count === 1 ? 'item' : 'items'}
 
             a.btn.btn-primary.member-action(href=`/users/${user.user_id}`) View Profile
 
