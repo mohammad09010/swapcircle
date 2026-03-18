@@ -12,7 +12,7 @@ router.get("/", async (req, res, next) => {
               u.display_name AS owner_name
        FROM items i
        LEFT JOIN users u ON u.user_id = i.owner_user_id
-       WHERE i.is_featured = 1
+       WHERE i.is_featured = 1 AND i.is_available = 1
        ORDER BY i.created_at DESC
        LIMIT 4;`
     );
@@ -21,6 +21,7 @@ router.get("/", async (req, res, next) => {
       `SELECT item_id, title, item_type, author_artist, location_text,
               image_path, created_at
        FROM items
+       WHERE is_available = 1 AND is_featured = 0
        ORDER BY created_at DESC
        LIMIT 4;`
     );
@@ -35,7 +36,7 @@ router.get("/", async (req, res, next) => {
         ...item,
         relativeDate: formatRelativeDate(item.created_at)
       })),
-      heroImage: "/public/images/record.svg"
+      heroImage: "/public/images/hero/record-shelf.jpg"
     });
   } catch (error) {
     next(error);
