@@ -134,3 +134,7 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Uploaded item images are runtime files; keep only the folder placeholder in Git
+public/uploads/items/*
+!public/uploads/items/.gitkeep
