@@ -1,4 +1,4 @@
-# Sprint 4 — Mid-sprint standup
+# Sprint 4: Mid-sprint standup
 
 **Date:** 7 April 2026
 **Attendees:** All four team members
@@ -14,9 +14,9 @@
 
 ## In progress
 
-- Ratings flow — Sagar finishing the rating form and the user-rating recompute query.
-- Notifications bell — Betab wiring badge counts into the navbar.
-- GitHub Actions — Nitesh tuning the Docker job to use the buildx cache.
+- Ratings flow: Sagar finishing the rating form and the user-rating recompute query.
+- Notifications bell: Betab wiring badge counts into the navbar.
+- GitHub Actions: Nitesh tuning the Docker job to use the buildx cache.
 
 ## Blockers
 
