@@ -1,0 +1,58 @@
+extends layout
+include includes/mixins
+
+block content
+  section.page-section.profile-page
+    .section-toolbar.profile-toolbar
+      a.back-link(href='/users') ←
+      h1 User Profile
+      nav.inline-nav
+        a(href='/tags') Explore
+        a(href='/leaderboard') Leaderboard
+        a(href=`/users/${user.user_id}`) Profile
+    .profile-hero-card
+      .profile-hero-main
+        +imageWithFallback(user.avatar_path, `${user.display_name} avatar`, '/public/images/placeholders/avatar.svg', 'profile-avatar')
+        .profile-hero-copy
+          h1= user.display_name
+          p.profile-meta #{user.joinedLabel} • #{user.location_text || 'Location not specified'}
+          p.profile-bio= user.bio
+          span.profile-level-pill= user.level
+      .profile-stats
+        .profile-stat
+          strong= user.item_count
+          span Items
+        .profile-stat
+          strong= user.swaps_completed
+          span Swaps
+        .profile-stat
+          strong #{user.rating}★
+          span Rating
+        .profile-stat
+          strong= user.points
+          span Points
+
+    .section-heading-row
+      h2 Items by #{user.display_name.split(' ')[0]}
+      a.text-link(href='/items') View all
+    if items.length
+      .profile-item-grid
+        each item in items
+          +profileItemCard(item)
+    else
+      .empty-state.empty-state-soft
+        p This member has not added any public items yet.
+
+    if ratings && ratings.length
+      .section-heading-row
+        h2 Recent reviews
+      .ratings-list
+        each r in ratings
+          .rating-item
+            .rating-item-header
+              +imageWithFallback(r.rater_avatar, r.rater_name, '/public/images/placeholders/avatar.svg', 'rating-rater-avatar')
+              strong= r.rater_name
+              span.rating-stars= '★'.repeat(r.stars)
+              span.rating-relative= r.relativeDate
+            if r.comment
+              p.rating-comment= r.comment
