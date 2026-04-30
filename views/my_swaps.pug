@@ -1,0 +1,55 @@
+extends layout
+include includes/mixins
+
+mixin swapRow(swap, kind)
+  - const counterpartName = kind === 'incoming' ? swap.requester_name : swap.owner_name
+  - const counterpartAvatar = kind === 'incoming' ? swap.requester_avatar : swap.owner_avatar
+  article.swap-row(class=`swap-row-${swap.status}`)
+    .swap-row-images
+      +imageWithFallback(swap.target_image, swap.target_title, '/public/images/placeholders/category-placeholder.svg', 'swap-row-image')
+      span.swap-row-arrow ↔
+      if swap.offered_image
+        +imageWithFallback(swap.offered_image, swap.offered_title || 'Offered item', '/public/images/placeholders/category-placeholder.svg', 'swap-row-image')
+      else
+        .swap-row-image.swap-row-image-empty Open offer
+    .swap-row-body
+      .swap-row-headline
+        h3
+          if kind === 'incoming'
+            | #{counterpartName} wants 
+          else
+            | You offered to swap for 
+          a(href=`/items/${swap.target_item_id}`)= swap.target_title
+        span.swap-status(class=`status-${swap.status}`)= swap.status
+      p.swap-row-meta= swap.relativeDate
+      if swap.message
+        p.swap-row-message= swap.message
+      .swap-row-actions
+        a.btn.btn-soft(href=`/my-swaps/${swap.request_id}`) Open conversation
+
+block content
+  section.page-section.my-swaps-page
+    .swap-page-header
+      h1 My Swaps
+      p All your incoming and outgoing swap conversations live here.
+    .swap-grid
+      .swap-column
+        h2 Incoming requests
+          span.count-pill= incoming.length
+        if incoming.length
+          each row in incoming
+            +swapRow(row, 'incoming')
+        else
+          .empty-state.empty-state-soft
+            p No incoming requests yet. Share your listings to get started.
+      .swap-column
+        h2 Outgoing requests
+          span.count-pill= outgoing.length
+        if outgoing.length
+          each row in outgoing
+            +swapRow(row, 'outgoing')
+        else
+          .empty-state.empty-state-soft
+            p You have not sent any requests yet. Browse 
+            a(href='/items') items
+            |  to find a swap.

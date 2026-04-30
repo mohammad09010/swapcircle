@@ -1,0 +1,116 @@
+extends layout
+include includes/mixins
+
+block content
+  section.page-section.detail-page
+    .detail-topbar
+      a.back-link(href="/items") ← Back to Items
+      .detail-top-actions
+        if currentUser
+          form.inline-form(method='POST' action=`/favorites/${item.item_id}/toggle`)
+            button.icon-btn(type='submit' aria-label=isFavorite ? 'Remove from saved' : 'Save item' title=isFavorite ? 'Remove from saved' : 'Save item')
+              | #{isFavorite ? '♥' : '♡'}
+
+    .detail-grid
+      .detail-gallery-panel
+        .detail-main-image-wrap
+          +imageWithFallback(item.gallery[0], `${item.title} main image`, '/public/images/placeholders/category-placeholder.svg', 'detail-main-image')
+          span.gallery-counter 1 / #{item.gallery.length}
+        if item.gallery.length > 1
+          .detail-thumbs
+            each imagePath, index in item.gallery
+              button.detail-thumb(type='button' data-gallery=imagePath class=index === 0 ? 'active' : '')
+                +imageWithFallback(imagePath, `${item.title} thumbnail ${index + 1}`, '/public/images/placeholders/category-placeholder.svg', 'detail-thumb-image')
+
+      .detail-info-panel
+        .detail-heading-meta
+          span.detail-type= item.item_type === 'book' ? 'Book' : 'Vinyl'
+          span.detail-condition= item.condition_note
+          if !item.is_available
+            span.detail-condition.swapped-pill Swapped
+        h1.detail-title= item.title
+        p.detail-author by #{item.author_artist}
+        if tags.length
+          .tag-row
+            each tag in tags
+              a.tag-chip(href=`/tags/${tag.tag_id}/items`)= tag.name
+
+        .owner-card
+          .owner-card-left
+            +imageWithFallback(item.avatar_path, item.owner_name, '/public/images/placeholders/avatar.svg', 'owner-avatar')
+            .owner-copy
+              h3
+                a(href=`/users/${item.owner_id}`)= item.owner_name
+              p= item.badge_label || 'Trusted community member'
+              p.owner-rating ★ #{item.rating} • #{item.swaps_completed} swaps
+          .owner-card-right
+            span.owner-label Location
+            strong= item.location_text || item.owner_location || 'Location not specified'
+
+        .owner-stats
+          .stat-card
+            span.stat-label Posted
+            strong= item.relativeDate
+          .stat-card
+            span.stat-label Swap Success
+            strong #{item.rating ? Math.round(item.rating * 20) : 98}%
+
+        if weather
+          .weather-card
+            .weather-icon= weather.icon
+            .weather-body
+              span.weather-label Weather in #{weather.city}
+              strong.weather-value= `${weather.temperatureC}°C • ${weather.label}`
+              span.weather-meta Wind #{weather.windKmh} km/h
+            if weather.estimate
+              span.weather-source(title='Live API unavailable, showing seasonal estimate') estimate
+            else
+              span.weather-source(title='Powered by Open-Meteo') via Open-Meteo
+
+        .safety-card
+          h3 Safety Tips
+          ul
+            li Meet in a well-lit, public location for the swap.
+            li Inspect the item thoroughly before finalising.
+            li Keep communication within SwapCircle.
+
+        if !currentUser
+          .swap-cta-box
+            p Sign in to send a swap request for this item.
+            a.btn.btn-primary(href='/auth/login') Sign in
+            a.btn.btn-soft(href='/auth/register') Create account
+        else if currentUser.user_id === item.owner_id
+          .swap-cta-box
+            p This is your listing. Open 
+            a(href='/my-swaps') My Swaps
+            |  to manage incoming requests.
+        else if !item.is_available
+          .swap-cta-box
+            p This item has already been swapped.
+        else if alreadyRequestedId
+          .swap-cta-box
+            p You already have an open request for this item.
+            a.btn.btn-primary(href=`/my-swaps/${alreadyRequestedId}`) Open conversation
+        else
+          form.swap-request-form(method='POST' action='/my-swaps/new')
+            input(type='hidden' name='target_item_id' value=item.item_id)
+            h3 Send a swap request
+            label.form-label(for='offered_item_id') Offer one of your items
+            select.form-input#offered_item_id(name='offered_item_id')
+              option(value='') I will discuss in chat
+              - var i = 0
+              while i < offerableItems.length
+                option(value=offerableItems[i].item_id)= offerableItems[i].title
+                - i++
+            label.form-label(for='message') Message
+            textarea.form-input#message(name='message' rows='3' maxlength='1000' placeholder='Hi! I would love to swap for your item...')
+            button.btn.btn-primary.btn-block(type='submit') Send Swap Request
+
+    if relatedItems.length
+      section.related-strip
+        h2 You might also like
+        .related-grid
+          each related in relatedItems
+            a.related-card(href=`/items/${related.item_id}`)
+              +imageWithFallback(related.image_path, related.title, '/public/images/placeholders/category-placeholder.svg', 'related-image')
+              span= related.title
