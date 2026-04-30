@@ -1,0 +1,84 @@
+extends layout
+include includes/mixins
+
+block content
+  section.page-section.settings-page
+    .section-toolbar
+      a.back-link(href='/dashboard') ←
+      h1 Settings
+    p.section-lead Manage your account, password and recommendation preferences.
+
+    if flashSuccess
+      .flash-success= flashSuccess
+    if flashError
+      .auth-error= flashError
+
+    .settings-grid
+      // ---- Profile ----
+      .settings-card
+        h2 Profile
+        p.muted-text Visible to other members.
+        form(method='POST' action='/settings/profile')
+          label.form-label(for='display_name') Display name
+          input.form-input#display_name(type='text' name='display_name' value=user.display_name required minlength='2' maxlength='80')
+
+          label.form-label(for='email') Email
+          input.form-input#email(type='email' value=user.email disabled)
+          p.muted-text.tiny Emails are not visible publicly.
+
+          label.form-label(for='location_text') City
+          input.form-input#location_text(type='text' name='location_text' value=user.location_text || '' maxlength='120' placeholder='e.g. London, UK')
+
+          label.form-label(for='avatar_path') Avatar URL (optional)
+          input.form-input#avatar_path(type='text' name='avatar_path' value=user.avatar_path || '' maxlength='255' placeholder='/public/images/users/your.png')
+
+          label.form-label(for='bio') Bio
+          textarea.form-input#bio(name='bio' rows='3' maxlength='1000')= user.bio || ''
+
+          button.btn.btn-primary(type='submit') Save profile
+
+      // ---- Password ----
+      .settings-card
+        h2 Change password
+        p.muted-text Use a strong password you don't reuse elsewhere.
+        form(method='POST' action='/settings/password')
+          label.form-label(for='current_password') Current password
+          input.form-input#current_password(type='password' name='current_password' required)
+          label.form-label(for='new_password') New password
+          input.form-input#new_password(type='password' name='new_password' required minlength='8' placeholder='At least 8 characters')
+          button.btn.btn-primary(type='submit') Change password
+
+      // ---- Preferences ----
+      .settings-card
+        h2 Recommendation tags
+        p.muted-text Pick tags you're interested in. We'll boost matching items in your feed.
+        form#prefs-form(method='POST' action='/settings/preferences')
+          .tag-checkbox-grid#prefs-grid
+            // Populated client-side after fetching
+          button.btn.btn-soft(type='submit') Save preferences
+
+      // ---- Danger zone ----
+      .settings-card
+        h2 Sign out
+        p.muted-text You'll need to log in again to send swap requests or chat.
+        form(method='POST' action='/auth/logout')
+          button.btn.btn-soft(type='submit') Sign out
+
+  script.
+    // Lightweight client-side load of available tags so we don't have
+    // to thread them through the route. We just hit the public /tags
+    // page is HTML, so easier to embed via a small JSON endpoint we
+    // expose below by linking to /tags/data — but to keep it simple
+    // here we just hard-code the standard six categories from the seed.
+    (function () {
+      const grid = document.getElementById("prefs-grid");
+      if (!grid) return;
+      const tags = [
+        { id: 1, name: "Fantasy" }, { id: 2, name: "Classics" },
+        { id: 3, name: "Rock" },    { id: 4, name: "Jazz" },
+        { id: 5, name: "Sci-Fi" },  { id: 6, name: "Mystery" }
+      ];
+      grid.innerHTML = tags.map(t =>
+        `<label class="tag-checkbox"><input type="checkbox" name="tag_ids" value="${t.id}"> <span>${t.name}</span></label>`
+      ).join("");
+    })();

@@ -1,0 +1,52 @@
+extends layout
+include includes/mixins
+
+block content
+  section.page-section.auth-shell
+    .auth-card.item-form-card
+      .auth-card-header
+        h1 List a new item
+        p Share a book or vinyl with the community. You will earn points when other members request a swap.
+      if flashError
+        .auth-error= flashError
+      form.auth-form(method='POST' action='/items/new' enctype='multipart/form-data')
+        label.form-label(for='title') Title
+        input.form-input#title(type='text' name='title' value=formValues.title required maxlength='200')
+
+        label.form-label(for='author_artist') Author / Artist
+        input.form-input#author_artist(type='text' name='author_artist' value=formValues.author_artist required maxlength='200')
+
+        label.form-label(for='item_type') Type
+        select.form-input#item_type(name='item_type')
+          option(value='book' selected=formValues.item_type === 'book') Book
+          option(value='record' selected=formValues.item_type === 'record') Vinyl record
+
+        label.form-label(for='condition_note') Condition (e.g. Good, Like New)
+        input.form-input#condition_note(type='text' name='condition_note' value=formValues.condition_note required maxlength='100')
+
+        label.form-label(for='location_text') Location (City)
+        input.form-input#location_text(type='text' name='location_text' value=formValues.location_text maxlength='120' placeholder='e.g. London, UK')
+
+        label.form-label(for='description') Description
+        textarea.form-input#description(name='description' rows='3' maxlength='2000')= formValues.description
+
+        label.form-label(for='item_images') Item photos
+        .upload-panel
+          label.upload-drop(for='item_images')
+            span.upload-icon 📷
+            strong Upload 1–5 item images
+            span First selected image becomes the listing cover.
+          input.upload-input#item_images(type='file' name='item_images' accept='image/jpeg,image/png,image/webp' multiple)
+          p.form-help JPG, PNG or WebP only. Maximum 5 images, 2MB each.
+          .upload-preview-grid#imagePreview(aria-live='polite')
+
+        if tags && tags.length
+          fieldset.tag-fieldset
+            legend Tags
+            .tag-checkbox-grid
+              each tag in tags
+                label.tag-checkbox
+                  input(type='checkbox' name='tag_ids' value=tag.tag_id checked=formValues.tagIds.includes(tag.tag_id))
+                  span= tag.name
+
+        button.btn.btn-primary.btn-block(type='submit') List item

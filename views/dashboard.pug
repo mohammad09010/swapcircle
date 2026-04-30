@@ -1,0 +1,69 @@
+extends layout
+include includes/mixins
+
+block content
+  section.page-section.dashboard-page
+    .dashboard-header
+      .dashboard-header-copy
+        p.eyebrow Welcome back
+        h1= currentUser.display_name
+        p.dashboard-meta #{level} • #{currentUser.points} pts • #{currentUser.swaps_completed} swaps • #{currentUser.rating}★
+      .dashboard-quick-actions
+        a.btn.btn-primary(href='/items/new') + List a new item
+        a.btn.btn-soft(href='/items') Browse items
+        a.btn.btn-soft(href='/favorites') Saved items
+
+    .stat-cards-row
+      .stat-callout
+        span.stat-callout-number= stats.pending_inbox
+        span.stat-callout-label Pending requests for you
+      .stat-callout
+        span.stat-callout-number= stats.pending_outbox
+        span.stat-callout-label Sent and waiting
+      .stat-callout
+        span.stat-callout-number= stats.active
+        span.stat-callout-label Accepted swaps
+      .stat-callout
+        span.stat-callout-number= stats.my_items
+        span.stat-callout-label Items you have listed
+      .stat-callout
+        span.stat-callout-number= stats.favorites
+        span.stat-callout-label Saved items
+
+    .dashboard-grid
+      .dashboard-col
+        .dashboard-card
+          .dashboard-card-header
+            h2 Recommended for you
+            a.text-link(href='/items') Browse all
+          if recommendations.length
+            .dashboard-rec-grid
+              each item in recommendations
+                article.dashboard-rec-card
+                  +imageWithFallback(item.image_path, item.title, '/public/images/placeholders/category-placeholder.svg', 'dashboard-rec-image')
+                  .dashboard-rec-body
+                    h4
+                      a(href=`/items/${item.item_id}`)= item.title
+                    p= item.author_artist
+                    if item.score !== undefined
+                      p.dashboard-rec-score Match score: #{(item.score * 100).toFixed(0)}%
+          else
+            .empty-state.empty-state-soft
+              p Add items to your favourites to improve your recommendations.
+      .dashboard-col
+        .dashboard-card
+          .dashboard-card-header
+            h2 Notifications
+            if notifications && notifications.length
+              form(method='POST' action='/notifications/read')
+                button.btn.btn-link(type='submit') Mark all read
+          if notifications.length
+            ul.notification-list
+              each n in notifications
+                li(class=n.is_read ? 'notif-read' : 'notif-unread')
+                  if n.link
+                    a(href=n.link)= n.body
+                  else
+                    span= n.body
+          else
+            p.muted-text No notifications yet.

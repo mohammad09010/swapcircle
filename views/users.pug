@@ -1,0 +1,35 @@
+extends layout
+include includes/mixins
+
+block content
+  section.page-section
+    .users-toolbar
+      .users-toolbar-left
+        a.back-link(href="/" aria-label="Back") ←
+        h1 Member Directory
+      form.toolbar-search(method="GET" action="/users")
+        input(type="text" name="q" value=q placeholder="Search members..." aria-label="Search members")
+      nav.inline-nav
+        a(href="/") Home
+        a(href="/items") Items
+        a.active(href="/users") Users
+        a(href="/leaderboard") Leaderboard
+
+    .users-actions
+      .privacy-banner
+        span 🔒
+        span Emails are hidden to protect member privacy.
+
+    if users.length
+      .directory-grid
+        each user in users
+          article.member-card
+            +imageWithFallback(user.avatar_path, `${user.display_name} avatar`, '/public/images/placeholders/avatar.svg', 'member-avatar')
+            h3.member-name= user.display_name
+            p.member-badge= user.level
+            p.member-meta #{user.joinedLabel} • #{user.item_count} items • #{user.points} pts
+            a.btn.btn-primary.member-action(href=`/users/${user.user_id}`) View Profile
+    else
+      .empty-state
+        h1 No members found
+        p Try another search term.

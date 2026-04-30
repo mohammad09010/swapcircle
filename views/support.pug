@@ -1,0 +1,83 @@
+extends layout
+
+block content
+  section.page-section.support-page
+    .section-toolbar
+      a.back-link(href='/') ←
+      h1 Support Center
+    p.section-lead Everything you need to swap safely on SwapCircle. If you can't find your answer below, contact us at the bottom of the page.
+
+    // ---- Safety banner ----
+    .support-safety
+      .support-safety-icon 🛡
+      .support-safety-copy
+        h2 Stay safe in the community
+        p SwapCircle is for in-person, non-monetary exchanges. Always meet in a public place, never share personal contact details outside the app and report anything that feels off.
+
+    // ---- FAQ ----
+    .support-grid
+      .support-card
+        h3 Getting started
+        details
+          summary How do I sign up?
+          p Click the Join button in the top right, fill in a display name, email and 8-character password. You'll be signed in straight away.
+        details
+          summary How do I list an item?
+          p Once logged in, click "+ List New Item" on the Items page or "+ List a new item" on your dashboard. Fill in title, author/artist, condition and tags, then submit. You'll earn 5 points.
+        details
+          summary How do points work?
+          p You earn 10 points for each completed swap, 5 for each item listed and 2 for each rating you submit. Your total is shown in the navbar.
+
+      .support-card
+        h3 Swapping
+        details
+          summary How do I send a swap request?
+          p Open any item detail page and use the "Send a swap request" form. You can optionally offer one of your own items in exchange.
+        details
+          summary How is a swap completed?
+          p Once both parties are happy, either side can mark the swap completed from the conversation page. Both items are marked as swapped and both sides earn points.
+        details
+          summary Can I cancel a request?
+          p Yes — the requester can cancel a pending request, the owner can reject it. Once accepted, the swap can be marked completed by either side.
+
+      .support-card
+        h3 Safety and ethics
+        details
+          summary Where should I meet?
+          p Public, well-lit places with other people around. Coffee shops, university libraries and transport hubs work well.
+        details
+          summary What about my email and phone?
+          p Emails are hidden in the public directory and contact happens via in-app messages. Don't share personal contact details with people you've just met.
+        details
+          summary How do I report someone?
+          p Use the contact email at the bottom of this page. We take reports seriously and will follow up within 48 hours.
+
+      .support-card
+        h3 Privacy
+        details
+          summary What data do you store?
+          p Only what you provide: display name, email, optional bio and city, plus your swap history. Passwords are stored as bcrypt hashes — never in plain text.
+        details
+          summary Can I delete my account?
+          p Email us using the address below and we will delete your account and listings within 7 days.
+        details
+          summary Do you use cookies?
+          p Yes — a single session cookie that keeps you logged in. We don't run any third-party analytics or advertising trackers.
+
+    // ---- Contact ----
+    .support-contact
+      h2 Contact us
+      p Email the team if you need help, want to report a bug or have a feature suggestion.
+      ul
+        li
+          strong Mohammad Betab Alam
+          |  · almmohammad291@gmail.com
+        li
+          strong Sagar Kumar Sharma
+          |  · thesagarsharma27@gmail.com
+        li
+          strong Nitesh Shah
+          |  · shahnitesh600@gmail.com
+        li
+          strong Arjun Mahato
+          |  · arjunmahato14333@gmail.com

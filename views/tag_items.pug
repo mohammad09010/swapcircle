@@ -1,0 +1,73 @@
+extends layout
+include includes/mixins
+
+block content
+  section.page-section.tag-items-page
+    .breadcrumb Home › Categories › #{tag.name}
+    .tag-items-layout
+      aside.tag-sidebar
+        h1= tag.name
+        p #{itemCount} items available
+        .sidebar-block
+          h3 Sub-categories
+          each sideTag in sidebarTags
+            a(class=sideTag.tag_id === tag.tag_id ? 'sidebar-chip active' : 'sidebar-chip', href=`/tags/${sideTag.tag_id}/items`)
+              span= sideTag.name
+              strong= sideTag.item_count
+        .sidebar-block
+          h3 Filter By
+          label.radio-row
+            input(type='radio' checked)
+            span Available Now
+          label.radio-row
+            input(type='radio')
+            span Recently Added
+          label.radio-row
+            input(type='radio')
+            span High Rated Owners
+      .tag-main
+        .tag-main-toolbar
+          h2 Available Items
+          .toolbar-inline
+            span Sort by:
+            select
+              option Newest First
+        if items.length
+          .tag-item-grid
+            each item in items
+              +itemCard(item, { showSwap: false })
+          p.grid-end-note No more items to show.
+        else
+          .empty-state
+            h2 No items in this category yet
+            p Check back later or browse another category.
+  footer.site-footer
+    .footer-top
+      .footer-column
+        .footer-brand
+          .brand
+           img.brand-logo(src="/public/images/logo.svg" alt="SwapCircle logo")
+           span.brand-text= projectName
+        p The community-driven platform for swapping books, media, and collectibles. Give your items a second life.
+      .footer-column
+        h4 Platform
+        a(href='/support') How it Works
+        a(href='/tags') Categories
+        a(href='/support') Premium Membership
+        a(href='/support') Success Stories
+      .footer-column
+        h4 Support
+        a(href='/support') Help Center
+        a(href='/support') Trust & Safety
+        a(href='/support') Shipping Guide
+        a(href='/support') Contact Us
+      .footer-column
+        h4 Legal
+        a(href='/support') Terms of Service
+        a(href='/support') Privacy Policy
+        a(href='/support') Cookie Policy
+    .footer-bottom
+      p © 2024 SwapCircle. All rights reserved.
+      .footer-links-inline
+        a(href='/support') Twitter
+        a(href='/support') Instagram

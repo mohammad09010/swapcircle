@@ -1,0 +1,81 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    title= pageTitle ? `${pageTitle} | ${projectName}` : projectName
+    link(rel="preconnect" href="https://fonts.googleapis.com")
+    link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+    link(href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet")
+    link(rel="stylesheet" href="/public/css/style.css")
+    link(rel="stylesheet" href="/public/css/sprint4.css")
+    script(src="/public/js/theme.js" defer)
+    script(src="/public/js/app.js" defer)
+  body(class=pageClass || '')
+    header.site-header
+      .site-header-inner
+        a.brand.footer-brand-row(href="/")
+          img.brand-logo(src="/public/images/logo.svg" alt="SwapCircle logo")
+          span.brand-text= projectName
+        nav.site-nav
+          a(class=currentPath === '/' ? 'active' : '', href="/") Home
+          a(class=currentPath.startsWith('/items') ? 'active' : '', href="/items") Items
+          a(class=currentPath.startsWith('/users') ? 'active' : '', href="/users") Users
+          a(class=currentPath.startsWith('/tags') ? 'active' : '', href="/tags") Tags
+          a(class=currentPath.startsWith('/leaderboard') ? 'active' : '', href="/leaderboard") Leaderboard
+          if currentUser
+            a.with-badge(class=currentPath.startsWith('/my-swaps') ? 'active' : '', href="/my-swaps")
+              | My Swaps
+              if unreadMessages > 0
+                span.nav-badge= unreadMessages
+        .site-header-actions
+          if currentUser
+            a.notification-bell(href="/dashboard" aria-label="Notifications" title="Dashboard")
+              span.bell-icon 🔔
+              if unreadNotifications > 0
+                span.nav-badge.bell-badge= unreadNotifications
+            a.user-pill(href="/dashboard" aria-label="Open dashboard")
+              img.user-pill-avatar(src=currentUser.avatar_path || '/public/images/placeholders/avatar.svg' onerror="this.onerror=null;this.src='/public/images/placeholders/avatar.svg'" alt=currentUser.display_name)
+              span.user-pill-name= currentUser.display_name.split(' ')[0]
+              span.user-pill-points #{currentUser.points} pts
+            form.logout-form(method='POST' action='/auth/logout')
+              button.btn.btn-link(type='submit') Logout
+          else
+            a.btn.btn-link(href="/auth/login") Sign in
+            a.btn.btn-primary.btn-compact(href="/auth/register") Join
+          button.theme-toggle#themeToggle(type="button" aria-label="Toggle theme") ☾
+    main.page-shell
+      block content
+
+    footer.global-footer
+      .global-footer-inner
+        .footer-branding
+          .brand
+            img.brand-logo(src="/public/images/logo.svg" alt="SwapCircle logo")
+            span.brand-text= projectName
+          p Building a sustainable community for collectors, readers, and music lovers around the globe.
+        .footer-column
+          h4 Browse
+          a(href="/items") All items
+          a(href="/tags") Categories
+          a(href="/users") Members
+          a(href="/leaderboard") Leaderboard
+        .footer-column
+          h4 Account
+          if currentUser
+            a(href="/dashboard") Dashboard
+            a(href="/my-swaps") My swaps
+            a(href="/favorites") Saved
+            a(href="/settings") Settings
+          else
+            a(href="/auth/login") Sign in
+            a(href="/auth/register") Create account
+        .footer-column
+          h4 Help
+          a(href="/support") Support center
+          a(href="/support") Safety guide
+          a(href="/support") Privacy policy
+          a(href="/support") Report an issue
+      .footer-bottom
+        p © 2026 SwapCircle · Built for a circular economy · Module CMP-N204-0
+    #toast.toast(role="status" aria-live="polite")

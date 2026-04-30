@@ -1,0 +1,78 @@
+extends layout
+include includes/mixins
+
+block content
+  section.page-section.items-shell
+    aside.items-shell-sidebar
+      .brand
+        img.brand-logo(src="/public/images/logo.svg" alt="SwapCircle logo")
+        span.brand-text= projectName
+      nav.sidebar-nav
+        a(href="/") Home
+        a.active(href="/items") Items
+        if currentUser
+          a(href="/my-swaps") Requests
+          a(href=`/users/${currentUser.user_id}`) Profile
+          a(href="/favorites") Saved
+          a(href="/leaderboard") Leaderboard
+        else
+          a(href="/users") Members
+          a(href="/leaderboard") Leaderboard
+      .sidebar-footer
+        if currentUser
+          a(href="/settings") Settings
+        else
+          a(href="/auth/login") Sign in
+    .items-shell-main
+      .market-header
+        h1 Marketplace
+        form.market-search(method="GET" action="/items")
+          input(type="text" name="q" value=q placeholder="Search for books, records, and more...")
+          if selectedType
+            input(type="hidden" name="type" value=selectedType)
+          if sort
+            input(type="hidden" name="sort" value=sort)
+        .market-header-actions
+          if currentUser
+            a.btn.btn-primary(href="/items/new") + List New Item
+          else
+            a.btn.btn-primary(href="/auth/login") Sign in to list
+      .market-filter-row
+        .pill-filters
+          a(class=!selectedType ? 'pill-filter active' : 'pill-filter', href=`/items?q=${encodeURIComponent(q)}&sort=${sort}`) All Items
+          a(class=selectedType === 'book' ? 'pill-filter active' : 'pill-filter', href=`/items?q=${encodeURIComponent(q)}&type=book&sort=${sort}`) Books
+          a(class=selectedType === 'record' ? 'pill-filter active' : 'pill-filter', href=`/items?q=${encodeURIComponent(q)}&type=record&sort=${sort}`) Vinyl Records
+        .result-meta
+          span.filter-icon ≣
+          span #{itemCount} items found
+        form.sort-select-wrap(method='GET' action='/items')
+          span Sort by:
+          input(type='hidden' name='q' value=q)
+          input(type='hidden' name='type' value=selectedType)
+          select(name='sort' onchange='this.form.submit()')
+            option(value='recent' selected=sort==='recent') Recent
+            option(value='title' selected=sort==='title') Title
+      if items.length
+        .market-grid
+          each item in items
+            +itemCard(item, { compact: true })
+      else
+        .empty-state
+          h2 No items found
+          p Try another search term or switch the type filter.
+    aside.items-shell-right
+      .widget-card
+        h3 Recent Swaps
+        if recentSwaps.length
+          each swap in recentSwaps
+            .recent-swap-row
+              +imageWithFallback(swap.image_path, swap.title, '/public/images/placeholders/category-placeholder.svg', 'recent-swap-thumb')
+              .recent-swap-copy
+                h4= swap.title
+                p= swap.relativeDate
+        else
+          p.muted-text No swaps yet — be the first to start one.
+      .widget-card.widget-highlight
+        h3 Invite Friends
+        p Grow your circle and find more items to swap.
+        a.btn.btn-primary(href="/referral") Get Referral Link

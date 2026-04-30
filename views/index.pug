@@ -1,0 +1,86 @@
+extends layout
+include includes/mixins
+
+block content
+  section.page-section.hero-section
+    .hero-copy
+      h1.hero-title
+        | Swap,
+        span.hero-title-accent  don’t waste.
+      p.hero-text Join our community to swap books and vinyl records. Give your cherished items a second life with fellow enthusiasts.
+      .hero-actions
+        a.btn.btn-primary(href="/items") Browse Items →
+        a.btn.btn-soft(href="/users") See Members
+        a.text-link(href="/tags") Explore Tags
+        if !currentUser
+          a.text-link(href="/auth/register") Join free
+    .hero-media
+      +imageWithFallback(heroImage, 'SwapCircle hero illustration', '/public/images/placeholders/category-placeholder.svg', 'hero-image')
+
+  if currentUser && recommendations.length
+    section.page-section
+      .section-heading-row
+        .section-heading
+          h2 Recommended for #{currentUser.display_name.split(' ')[0]}
+          p Personalised picks based on your tags, favourites and location.
+        a.text-link(href="/dashboard") Open dashboard
+      .card-grid.card-grid-home
+        each item in recommendations
+          article.home-item-card
+            .home-item-image-wrap
+              +imageWithFallback(item.image_path, `${item.title} cover`, '/public/images/placeholders/category-placeholder.svg', 'home-item-image')
+              span.item-pill= item.item_type === 'book' ? 'Book' : 'Vinyl'
+            .home-item-content
+              h3.home-item-title
+                a(href=`/items/${item.item_id}`)= item.title
+              p.home-item-author= item.author_artist
+              if item.score !== undefined
+                p.home-item-score Match #{(item.score * 100).toFixed(0)}%
+              a.btn.btn-soft.home-item-action(href=`/items/${item.item_id}`) View Details
+
+  if featuredItems.length
+    section.page-section
+      .section-heading-row
+        .section-heading
+          h2 Featured Items
+          p Hand-picked swaps from trusted community members
+        a.text-link(href="/items") Browse all items
+      .card-grid.card-grid-home
+        each item in featuredItems
+          article.home-item-card
+            .home-item-image-wrap
+              +imageWithFallback(item.image_path, `${item.title} cover`, '/public/images/placeholders/category-placeholder.svg', 'home-item-image')
+              span.item-pill= item.item_type === 'book' ? 'Book' : 'Vinyl'
+            .home-item-content
+              h3.home-item-title
+                a(href=`/items/${item.item_id}`)= item.title
+              p.home-item-author= item.author_artist
+              p.home-item-location= item.location_text
+              a.btn.btn-soft.home-item-action(href=`/items/${item.item_id}`) View Details
+
+  if latestItems.length
+    section.page-section
+      .section-heading-row
+        .section-heading
+          h2 Latest Items
+          p Recently added treasures waiting for a new home
+        a.text-link(href="/items") View Gallery
+      .card-grid.card-grid-home
+        each item in latestItems
+          article.home-item-card
+            .home-item-image-wrap
+              +imageWithFallback(item.image_path, `${item.title} cover`, '/public/images/placeholders/category-placeholder.svg', 'home-item-image')
+              span.item-pill= item.item_type === 'book' ? 'Book' : 'Vinyl'
+            .home-item-content
+              h3.home-item-title
+                a(href=`/items/${item.item_id}`)= item.title
+              p.home-item-author= item.author_artist
+              p.home-item-location= item.location_text
+              a.btn.btn-soft.home-item-action(href=`/items/${item.item_id}`) View Details
+
+  section.page-section.safety-banner
+    .safety-banner-icon 🛡
+    .safety-banner-copy
+      h3 Stay Safe in the Community
+      p Meet in public places, don’t share personal details in-app, and report suspicious behaviour. Your safety is our top priority while swapping.
+    a.btn.btn-primary(href="/support") Safety Center
