@@ -1,4 +1,4 @@
-# Sprint 4 — Submission readiness
+# Sprint 4: Submission readiness
 
 **Date:** 25 April 2026
 **Attendees:** All four team members
