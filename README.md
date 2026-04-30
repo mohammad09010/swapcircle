@@ -32,23 +32,41 @@ The initiative is in tandem with the module theme **Sharing, Exchange, and Build
 
 ### Current Features
 
-- Basic Setup: Express.js application using PUG templating engine and reusable layout system.
-- Dockerized Development Environment: Docker Compose configuration for the Node.js web app and MySQL database to enable consistent team working & demonstration.
-- MySQL Database: Dockerized MySQL database setup including schema creation scripts, seed data files and relational model for users, items, tags, and item-tag mapping.
-- Home Page: Dynamic home page with hero section, latest items, platform statistics, safety messaging, and quick navigation links.
-- Health Check: Basic endpoint to check the health status of the application and the database connection.
-- Items Listing Page: Marketplace page displaying all books and records available with search feature, type filters, and sorting options.
-= Item Detail Page: Full item description along with metadata, owner details, tags, condition, location, image gallery, and safety tips.
-- Tags / Categories Page: Graphical categories page for browsing items by tag or genre.
-- Items by Tag Page: Filtered listing page displaying all items associated with a chosen category.
-- Users Directory: Community member listing page with users, badges, joined information, and public-safe profile summaries.
-- User Profile Page: Member profile detail page including bio, stats, avatar, and items listed by that user.
-- Image Asset Support: Organised system of uploads for item covers, user avatars, category images, and site-wide images.
-- Fallback Placeholders: Default dummy images for missing items, avatar, category, and site assets.
-- Custom 404 Page: Themed not-found page with navigation links to key areas of the app.
-- Dark Mode Toggle: Switches the theme from dark mode to light mode and vice versa.
-- Responsive UI: Component layout and styling suited for both desktop and smaller screen sizes.
-- Privacy and Safety Messaging: Displaying anti-spam email methods and on-screen safety reminders for foster swapping responsibly.
+- **Basic Setup:** Express.js application using the PUG templating engine and a reusable layout system.
+
+- **Dockerized Development Environment:** Docker Compose configuration for the Node.js web app and MySQL database, enabling consistent team working and demonstration.
+
+- **MySQL Database:** Dockerized MySQL database setup including schema creation scripts, seed data files, and a relational model for users, items, tags, and item-tag mapping.
+
+- **Home Page:** Dynamic home page with hero section, latest items, platform statistics, safety messaging, and quick navigation links.
+
+- **Health Check:** Basic endpoint to check the health status of the application and the database connection.
+
+- **Items Listing Page:** Marketplace page displaying all books and records available for swap, with search feature, type filters, and sorting options.
+
+- **Item Detail Page:** Full item description with metadata, owner details, tags, condition, location, image gallery, and safety tips.
+
+- **Tags / Categories Page:** Graphical categories page for browsing items by tag or genre.
+
+- **Items by Tag Page:** Filtered listing page displaying all items associated with a chosen category.
+
+- **Users Directory:** Community member listing page with users, badges, joined information, and public-safe profile summaries.
+
+- **User Profile Page:** Member profile detail page including bio, stats, avatar, and items listed by that user.
+
+- **Image Asset Support:** Organised image system for item covers, user avatars, category images, site-wide images, and uploaded item photos.
+
+- **Multi-Image Item Upload:** Users can upload up to five item images when creating a listing. The first image becomes the listing cover, and the remaining images appear in the item detail gallery.
+
+- **Fallback Placeholders:** Default dummy images for missing item covers, avatars, categories, and site assets.
+
+- **Custom 404 Page:** Themed not-found page with navigation links to key areas of the app.
+
+- **Dark Mode Toggle:** Switches the theme between dark mode and light mode.
+
+- **Responsive UI:** Component layout and styling suited for both desktop and smaller screen sizes.
+
+- **Privacy and Safety Messaging:** Displays anti-spam email methods and on-screen safety reminders to encourage responsible swapping.
 
 ---
 
